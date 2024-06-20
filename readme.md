@@ -1,4 +1,4 @@
-# @shibam/sticker-makee
+# @shibam/sticker-maker
 
 `@shibam/sticker-maker` is a utility library for converting images and videos to stickers with customizable metadata. It supports various input types and ensures high-quality sticker conversion.
 

@@ -82,13 +82,3 @@ class Sticker {
 
 export default { Sticker, StickerTypes }
 
-const data = fs.readFileSync("input.gif");
-await new Sticker(data,{
-  pack: "test",
-  author: "test",
-  id: "test",
-  category: ["😂","😹"],
-  type: StickerTypes.CIRCLE,
-  quality: 100,
-  background: "red"
-}).toFile("lol.webp");

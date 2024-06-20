@@ -87,8 +87,9 @@ const ToWebp = async (
     // Cleanup temporary files
     await cleanup(inputPath, outputPath);
   }
+};
 
-  /**
+/**
    * Cleans up temporary files used during conversion.
    * @param inputPath Path to the input temporary file.
    * @param outputPath Path to the output temporary file.
@@ -99,7 +100,5 @@ const ToWebp = async (
     } catch (unlinkError) {
       console.error("Error cleaning output file:", unlinkError);
     }
-  }
-};
-
+}
 export default ToWebp;

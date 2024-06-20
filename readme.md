@@ -1,6 +1,6 @@
-# @shibam/sticker-formatter
+# @shibam/sticker-makee
 
-`@shibam/sticker-formatter` is a utility library for converting images and videos to stickers with customizable metadata. It supports various input types and ensures high-quality sticker conversion.
+`@shibam/sticker-maker` is a utility library for converting images and videos to stickers with customizable metadata. It supports various input types and ensures high-quality sticker conversion.
 
 ## Installation
 # ⚠️ Before installing this make sure u downloaded ffmpeg 
@@ -8,7 +8,7 @@
 You can install the package using npm:
 
 ```sh
-npm install @shibam/sticker-formatter
+npm install @shibam/sticker-maker
 ```
 
 ## Usage
@@ -16,7 +16,7 @@ npm install @shibam/sticker-formatter
 Here's a basic example of how to use the `Sticker` class from the library:
 
 ```typescript
-import { Sticker, StickerTypes } from "@shibam/sticker-formatter";
+import { Sticker, StickerTypes } from "@shibam/sticker-maker";
 
 // Create a new Sticker instance
 const sticker = new Sticker("path/to/image.png", {

@@ -1,0 +1,20 @@
+{
+  "name": "@shibam/sticker-formatter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Shibam Dey",
+  "license": "MIT",
+  "dependencies": {
+    "file-type": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "tsx": "^4.7.1",
+    "typescript": "^5.4.5"
+  }
+}

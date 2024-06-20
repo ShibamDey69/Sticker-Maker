@@ -3,7 +3,7 @@
 `@shibam/sticker-maker` is a utility library for converting images and videos to stickers with customizable metadata. It supports various input types and ensures high-quality sticker conversion.
 
 ## Installation
-# ⚠️ Before installing this make sure u downloaded ffmpeg 
+# ⚠️ Before installing this make sure you have downloaded ffmpeg 
    
 You can install the package using npm:
 

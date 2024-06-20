@@ -3,7 +3,6 @@ import fs from "fs";
 import { fileTypeFromBuffer } from "file-type";
 
 export default class Utils {
-
   constructor() {}
 
   /**
@@ -60,8 +59,9 @@ export default class Utils {
    */
   getQuality(data: Buffer): number {
     let buffer = Buffer.from(data);
-    let bytes = buffer.length/1024;
-    let quality = bytes > 4 * 1024 ? 8 : bytes > 3 * 1024 ? 10 : bytes > 2 * 1024 ? 12 : 15;
+    let bytes = buffer.length / 1024;
+    let quality =
+      bytes > 4 * 1024 ? 8 : bytes > 3 * 1024 ? 10 : bytes > 2 * 1024 ? 12 : 15;
     return quality;
   }
 

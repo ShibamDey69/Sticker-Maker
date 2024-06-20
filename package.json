@@ -10,7 +10,9 @@
   "author": "Shibam Dey",
   "license": "MIT",
   "dependencies": {
-    "file-type": "^19.0.0"
+    "@types/fluent-ffmpeg": "^2.1.24",
+    "file-type": "^19.0.0",
+    "fluent-ffmpeg": "^2.1.3"
   },
   "devDependencies": {
     "@types/node": "^20.10.0",

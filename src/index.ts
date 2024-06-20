@@ -13,9 +13,10 @@ class Sticker {
 
   constructor(
     private data: Buffer | string | Readable,
-    public metaInfo: Partial<MetaDataType> = {}
+    public metaInfo: Partial<MetaDataType> = {},
   ) {
     this.buffer = Buffer.from([]);
+    this.metaInfo = this.metaInfo;
   }
 
   /**
@@ -38,7 +39,7 @@ class Sticker {
       this.metaInfo.category = this.metaInfo.category ?? [];
       this.metaInfo.type = this.metaInfo.type ?? StickerTypes.DEFAULT;
       this.metaInfo.quality =
-        this.metaInfo.quality ?? this.utils.getQuality(this.buffer);
+        this.metaInfo?.quality ?? this.utils.getQuality(this.buffer);
       this.metaInfo.background = this.metaInfo.background;
     } catch (error) {
       throw new Error(`Initialization error: ${error}`);
@@ -56,11 +57,13 @@ class Sticker {
         this.buffer,
         this.metaInfo,
         this.extType,
-        this.mimeType
+        this.mimeType,
       );
       return bufferData ?? Buffer.from([]);
     } catch (error) {
-      throw new Error(`Conversion to buffer failed: ${error}`);
+      console.log(error);
+      //  throw new Error(`Conversion to buffer failed: ${error}`);
+      throw error;
     }
   }
 
@@ -80,5 +83,4 @@ class Sticker {
   }
 }
 
-export default { Sticker, StickerTypes }
-
+export default { Sticker, StickerTypes };

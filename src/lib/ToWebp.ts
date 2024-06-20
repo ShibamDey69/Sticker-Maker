@@ -5,6 +5,7 @@ import { tmpdir } from "os";
 import { promisify } from "util";
 import { MetaDataType } from "../types/metaInfoType";
 import { StickerTypes } from "../types/StickerTypes";
+import toGif from "./toGif";
 const execAsync = promisify(exec);
 
 /**
@@ -21,14 +22,16 @@ const ToWebp = async (
   metaInfo: Partial<MetaDataType>,
   mimeExt: string | undefined,
   mimeType: string | undefined,
-): Promise<Buffer | undefined> => {
-  const inputPath = join(tmpdir(), `${Date.now()}.${mimeExt}`);
+): Promise<Buffer> => {
+  let inputPath = join(tmpdir(), `${Date.now()}.${mimeExt}`);
   const outputPath = join(tmpdir(), `${Date.now()}.webp`);
 
   try {
     // Write input buffer to temporary file
     await writeFile(inputPath, buffer);
-
+    inputPath = mimeType?.includes("video")
+    ? await toGif(inputPath)
+    : inputPath;
     // Construct arguments for ffmpeg conversion
     const args: string[] = [
       "-i",
@@ -55,8 +58,9 @@ const ToWebp = async (
             "-auto-alt-ref 0",
             "-lag-in-frames 0",
             "-preset default",
+            "-t 10",
+            "-r 15",
             "-loop 0",
-            "-r 19",
             '-metadata:s:v:0 alpha_mode="1"',
             mimeExt === "gif" ? "-lossless 1" : "-lossless 0",
           ].join(" ")
@@ -66,6 +70,10 @@ const ToWebp = async (
         : "",
       metaInfo.pack ? `-metadata sticker-pack-name="${metaInfo.pack}"` : "",
       metaInfo.id ? `-metadata sticker-pack-id="${metaInfo.id}"` : "",
+      metaInfo.quality ? `-metadata sticker-quality="${metaInfo.quality}"` : "",
+      metaInfo.background
+        ? `-metadata sticker-background-color="${metaInfo.background}"`
+        : "",
       metaInfo.category?.length
         ? `-metadata emojis="${metaInfo.category.join(",")}"`
         : "",
@@ -76,8 +84,6 @@ const ToWebp = async (
     ];
     // Execute ffmpeg command with constructed arguments
     await execAsync(`ffmpeg ${args.join(" ")}`);
-
-    //await execAsync(`${ffmpegCommand.join(" ")}`)
     // Read converted WebP file back into a buffer
     const outputBuffer = await readFile(outputPath);
     return outputBuffer;

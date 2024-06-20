@@ -10,12 +10,14 @@ class Sticker {
   private mimeType: string | undefined;
   private extType: string | undefined;
   private utils = new Utils();
+  private outBuffer: Buffer;
 
   constructor(
     private data: Buffer | string | Readable,
     public metaInfo: Partial<MetaDataType> = {},
   ) {
     this.buffer = Buffer.from([]);
+    this.outBuffer = Buffer.from([]);
     this.metaInfo = this.metaInfo;
   }
 
@@ -53,17 +55,15 @@ class Sticker {
   public async toBuffer(): Promise<Buffer> {
     try {
       await this.initialize();
-      const bufferData = await convert(
+      this.outBuffer = await convert(
         this.buffer,
         this.metaInfo,
         this.extType,
         this.mimeType,
       );
-      return bufferData ?? Buffer.from([]);
+      return this.outBuffer ?? Buffer.from([]);
     } catch (error) {
-      console.log(error);
-      //  throw new Error(`Conversion to buffer failed: ${error}`);
-      throw error;
+       throw new Error(`Conversion to buffer failed: ${error}`);
     }
   }
 
@@ -74,13 +74,25 @@ class Sticker {
    */
   public async toFile(outputPath: string): Promise<void> {
     try {
-      const buffer = await this.toBuffer();
-      await fs.promises.writeFile(outputPath, buffer);
+      await this.toBuffer();
+      await fs.promises.writeFile(outputPath, this.outBuffer);
     } catch (error) {
       console.error(`Error converting to file: ${error}`);
       throw new Error(`Conversion to file failed: ${error}`);
     }
   }
+
+/*  public async changeMetaInfo(
+    newMetaInfo: any
+  ) {
+    try {
+      this.metaInfo = { ...this.metaInfo, ...newMetaInfo };
+      
+    } catch (error) {
+      throw new Error(`Error changing meta info: ${error}`);
+    }
+  }*/
 }
 
 export default { Sticker, StickerTypes };
+

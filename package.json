@@ -1,7 +1,7 @@
 {
   "name": "@shibam/sticker-maker",
   "version": "1.0.0",
-  "description": "",
+  "description": "A package for creating stickers",
   "main": "index.ts",
   "type": "module",
   "scripts": {
@@ -9,10 +9,22 @@
   },
   "author": "Shibam Dey",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/NekoSenpai69/Sticker-Maker.git"
+  },
+  "keywords": [
+    "stickers",
+    "sticker maker",
+    "image processing",
+    "wa sticker maker",
+    "wasticker",
+    "nodejs",
+    "typescript"
+  ],
   "dependencies": {
     "file-type": "^19.0.0",
-    "node-webpmux": "^3.2.0",
-    "wa-sticker-formatter": "^4.4.4"
+    "node-webpmux": "^3.2.0"
   },
   "devDependencies": {
     "@types/node": "^20.10.0",

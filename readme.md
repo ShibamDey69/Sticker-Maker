@@ -1,6 +1,6 @@
 # @shibam/sticker-maker
 
-`@shibam/sticker-maker` is a utility library for converting images and videos to stickers with customizable metadata. It supports various input types and ensures high-quality sticker conversion.
+`@shibam/sticker-maker` is a lightweight utility library designed for converting images and videos into stickers while allowing customization of metadata. It supports various input types and ensures high-quality sticker conversion. This module has minimal dependencies, ensuring efficient performance. If you encounter any issues, please feel free to open an issue. However, please check if a similar issue has already been reported before creating a new one. Happy Coding (⁠≧⁠▽⁠≦⁠).
 
 ## Installation
 # ⚠️ Before installing this make sure you have downloaded ffmpeg 
@@ -94,4 +94,4 @@ enum StickerTypes {
 MIT License
 
 
-This README provides an overview of how to install, use, and understand the module of your `@shibam/sticker-formatter` package. You can modify it as needed to better fit the specifics of your library and any additional features or requirements you might have.if you wanna contribute feel free to contribute. <⁠(⁠￣⁠︶⁠￣⁠)⁠>
+This README provides an overview of how to install, use, and understand the module of your `@shibam/sticker-formatter` package. You can modify it as needed to better fit the specifics of your library and any additional features or requirements you might have.if you wanna contribute feel free to contribute.Enjoy (⁠≧⁠▽⁠≦⁠)

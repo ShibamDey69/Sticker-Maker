@@ -10,7 +10,9 @@
   "author": "Shibam Dey",
   "license": "MIT",
   "dependencies": {
-    "file-type": "^19.0.0"
+    "file-type": "^19.0.0",
+    "node-webpmux": "^3.2.0",
+    "wa-sticker-formatter": "^4.4.4"
   },
   "devDependencies": {
     "@types/node": "^20.10.0",

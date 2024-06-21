@@ -1,4 +1,4 @@
-import { exec, spawn } from "child_process";
+import { exec } from "child_process";
 import { join } from "path";
 import { readFile, writeFile, unlink } from "fs/promises";
 import { tmpdir } from "os";
@@ -23,15 +23,15 @@ const ToWebp = async (
   mimeExt: string | undefined,
   mimeType: string | undefined,
 ): Promise<Buffer> => {
-  let inputPath = join(tmpdir(), `${Date.now()}.${mimeExt}`);
-  const outputPath = join(tmpdir(), `${Date.now()}.webp`);
+  let inputPath = join(tmpdir(), `${Date.now()}input.${mimeExt}`);
+  const outputPath = join(tmpdir(), `${Date.now()}output.webp`);
 
   try {
     // Write input buffer to temporary file
     await writeFile(inputPath, buffer);
     inputPath = mimeType?.includes("video")
-    ? await toGif(inputPath)
-    : inputPath;
+      ? await toGif(inputPath)
+      : inputPath;
     // Construct arguments for ffmpeg conversion
     const args: string[] = [
       "-i",
@@ -65,18 +65,6 @@ const ToWebp = async (
             mimeExt === "gif" ? "-lossless 1" : "-lossless 0",
           ].join(" ")
         : "-c:v libwebp",
-      metaInfo.author
-        ? `-metadata sticker-pack-publisher="${metaInfo.author}"`
-        : "",
-      metaInfo.pack ? `-metadata sticker-pack-name="${metaInfo.pack}"` : "",
-      metaInfo.id ? `-metadata sticker-pack-id="${metaInfo.id}"` : "",
-      metaInfo.quality ? `-metadata sticker-quality="${metaInfo.quality}"` : "",
-      metaInfo.background
-        ? `-metadata sticker-background-color="${metaInfo.background}"`
-        : "",
-      metaInfo.category?.length
-        ? `-metadata emojis="${metaInfo.category.join(",")}"`
-        : "",
       "-q:v",
       metaInfo.quality?.toString() ?? "50",
       "-y",
@@ -92,7 +80,7 @@ const ToWebp = async (
     throw new Error(`Conversion failed: ${error}`);
   } finally {
     // Cleanup temporary files
-    await cleanup(inputPath, outputPath);
+    await cleanup(inputPath, outputPath).catch((e) => console.error(e));
   }
 };
 

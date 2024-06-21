@@ -11,7 +11,6 @@ function changeMetaInfo(data: Buffer, metaInfo: Partial<MetaDataType>): Buffer {
       ? "fit"
       : "default";
 
-    const { ...restMetaInfo } = metaInfo;
     const updatedMetaData: MetaDataType = { type, ...restMetaInfo };
     const metaDataString = JSON.stringify(updatedMetaData);
     const updatedData = Buffer.concat([data, Buffer.from(metaDataString)]);

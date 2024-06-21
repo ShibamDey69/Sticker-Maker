@@ -5,7 +5,7 @@ export interface MetaDataType {
     author?: string;
     id?: string | null;
     category?: category[];
-    type?: StickerTypes | undefined;
+    type?: StickerTypes | string;
     quality?: number;
     background?: String | undefined;
 }

@@ -4,7 +4,8 @@ import Utils from "./lib/utils";
 import convert from "./lib/ToWebp";
 import { MetaDataType } from "./types/metaInfoType";
 import { StickerTypes } from "./types/StickerTypes";
-
+import MetaInfoChanger from "./lib/changeMetaInfo";
+import extractMetaData from "./lib/extractMetaData";
 class Sticker {
   private buffer: Buffer;
   private mimeType: string | undefined;
@@ -33,7 +34,6 @@ class Sticker {
       const fileType = await this.utils.getMimeType(this.buffer);
       this.mimeType = fileType?.mime;
       this.extType = fileType?.ext;
-
       // Set default values for metaInfo if not provided
       this.metaInfo.pack = this.metaInfo.pack ?? "";
       this.metaInfo.author = this.metaInfo.author ?? "";
@@ -74,7 +74,6 @@ class Sticker {
    */
   public async toFile(outputPath: string): Promise<void> {
     try {
-      await this.toBuffer();
       await fs.promises.writeFile(outputPath, this.outBuffer);
     } catch (error) {
       console.error(`Error converting to file: ${error}`);
@@ -82,17 +81,28 @@ class Sticker {
     }
   }
 
-/*  public async changeMetaInfo(
-    newMetaInfo: any
-  ) {
+  public async changeMetaInfo(
+    newMetaInfo: Partial<any | undefined>
+  ) : Promise<any | undefined> {
     try {
+      await this.initialize()
       this.metaInfo = { ...this.metaInfo, ...newMetaInfo };
-      
+      this.outBuffer = MetaInfoChanger(this.buffer, this.metaInfo);
+      return this.outBuffer;
     } catch (error) {
       throw new Error(`Error changing meta info: ${error}`);
     }
-  }*/
+  }
+
+  public async extractMetaData () {
+    try {
+      await this.initialize();
+      let metaData = extractMetaData(this.buffer);
+      return metaData;
+    } catch (error) {
+      throw new Error(`Error extracting meta data: ${error}`);
+    }
+  }
 }
 
 export default { Sticker, StickerTypes };
-

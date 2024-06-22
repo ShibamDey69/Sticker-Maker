@@ -1,12 +1,11 @@
-import { category } from './categoryType';
-import { StickerTypes } from './StickerTypes';
+import { category } from './categoryType.js'
+import { StickerTypes } from './StickerTypes.js'
 export interface MetaDataType {
-    pack?: string;
-    author?: string;
-    id?: string | null;
-    category?: category[];
-    type?: StickerTypes | string;
-    quality?: number;
-    background?: String | undefined;
+    pack?: string
+    author?: string
+    id?: string | null
+    category?: category[]
+    type?: StickerTypes | string
+    quality?: number
+    background?: String | undefined
 }
-

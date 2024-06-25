@@ -9,8 +9,8 @@ import extractMetaData from './lib/extractMetaData.js'
 
 class Sticker {
     private buffer: Buffer
-    private mimeType: string | undefined
-    private extType: string | undefined
+    private mimeType: string
+    private extType: string
     private utils = new Utils()
     private outBuffer: Buffer
     private activeBuff: boolean
@@ -24,6 +24,8 @@ class Sticker {
         this.outBuffer = Buffer.from([])
         this.activeBuff = false
         this.activeMeta = false
+        this.mimeType = ''
+        this.extType = ''
     }
 
     /**
@@ -36,16 +38,15 @@ class Sticker {
         try {
             this.buffer = await this.utils.buffer(this.data)
             const fileType = await this.utils.getMimeType(this.buffer)
-            this.mimeType = fileType?.mime
-            this.extType = fileType?.ext
+            this.mimeType = fileType?.mime ?? ''
+            this.extType = fileType?.ext ?? ''
 
             this.metaInfo.pack = this.metaInfo.pack ?? ''
             this.metaInfo.author = this.metaInfo.author ?? ''
             this.metaInfo.id = this.metaInfo.id ?? this.utils.getId()
             this.metaInfo.category = this.metaInfo.category ?? []
             this.metaInfo.type = this.metaInfo.type ?? StickerTypes.DEFAULT
-            this.metaInfo.quality = this.metaInfo.quality ?? this.utils.getQuality(this.buffer)
-            this.metaInfo.background = this.metaInfo.background
+            this.metaInfo.quality = this.metaInfo?.quality ?? this.utils.getQuality(this.buffer)
         } catch (error) {
             throw new Error(`Initialization error: ${error}`)
         }
@@ -60,10 +61,9 @@ class Sticker {
             await this.initialize()
             const buffer = await convert(this.buffer, this.metaInfo, this.extType, this.mimeType)
 
-            let MetaBuff = await new MetaInfoChanger(this.metaInfo).add(buffer)
+            this.outBuffer = await new MetaInfoChanger(this.metaInfo).add(buffer)
 
             this.activeBuff = true
-            this.outBuffer = this.extType !== 'gif' ? MetaBuff : buffer
             return this.outBuffer
         } catch (error) {
             this.activeBuff = false
@@ -94,10 +94,9 @@ class Sticker {
      * @param newMetaInfo Partial metadata to update.
      * @returns Promise<Buffer> A Promise resolving to the Buffer with updated metadata.
      */
-    public async changeMetaInfo(newMetaInfo: Partial<MetaDataType> = {}): Promise<Buffer> {
+    public async changeMetaInfo(): Promise<Buffer> {
         try {
             await this.initialize()
-            this.metaInfo = { ...this.metaInfo, ...newMetaInfo }
             this.outBuffer = await new MetaInfoChanger(this.metaInfo).add(this.buffer)
             this.activeMeta = true
             return this.outBuffer
@@ -123,4 +122,3 @@ class Sticker {
 }
 
 export { Sticker, StickerTypes }
-

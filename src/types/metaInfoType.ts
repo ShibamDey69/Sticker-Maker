@@ -3,9 +3,8 @@ import { StickerTypes } from './StickerTypes.js'
 export interface MetaDataType {
     pack?: string
     author?: string
-    id?: string | null
+    id?: string
     category?: category[]
-    type?: StickerTypes | string
+    type?: StickerTypes
     quality?: number
-    background?: String | undefined
 }

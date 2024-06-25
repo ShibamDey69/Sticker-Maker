@@ -1,13 +1,12 @@
 # @shibam/sticker-maker
 
-`@shibam/sticker-maker` is a lightweight utility library designed for converting images and videos into stickers while allowing customization of metadata. It supports various input types and ensures high-quality sticker conversion. This module has minimal dependencies, ensuring efficient performance. If you encounter any issues, please feel free to open an issue. However, please check if a similar issue has already been reported before creating a new one. Happy Coding (⁠≧⁠▽⁠≦⁠).
+`@shibam/sticker-maker` is a lightweight utility library designed for converting images and videos into stickers while allowing customization of metadata. you don't have to download ffmpeg in terminal. It supports various input types and ensures high-quality sticker conversion. This module has minimal dependencies, ensuring efficient performance. If you encounter any issues, please feel free to open an issue. However, please check if a similar issue has already been reported before creating a new one. Happy Coding (⁠≧⁠▽⁠≦⁠).
 
 # Sticker Class
 
 The `Sticker` class is a utility for converting images and videos into sticker format, with options for metadata customization and manipulation.
 
 ## Installation
-# ⚠️ Before installing this make sure you have downloaded ffmpeg 
    
 You can install the package using npm:
 
@@ -31,7 +30,6 @@ const sticker = new Sticker("path/to/image.png", {
   category: ['😂','😹'],
   type: StickerTypes.DEFAULT,
   quality: 30,
-  background: "red"
 });
 
 try {
@@ -49,7 +47,6 @@ const sticker2 = new Sticker("path/to/another/image.png", {
   category: ['😊','👍'],
   type: StickerTypes.CIRCLE,
   quality: 50,
-  background: "blue"
 });
 
 try {
@@ -100,7 +97,6 @@ enum StickerTypes {
   DEFAULT,
   CIRCLE,
   SQUARE,
-  FIT
 }
 ```
 
@@ -110,7 +106,7 @@ This package is licensed under the MIT License.
 
 ## Contributing
 
-Contributions are welcome. Feel free to open issues or submit pull requests on [GitHub](https://github.com/your/repository).
+Contributions are welcome. Feel free to open issues or submit pull requests on [GitHub](https://github.com/NekoSenpai69/Sticker-Maker).
 
 ---
 

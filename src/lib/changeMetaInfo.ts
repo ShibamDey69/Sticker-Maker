@@ -14,11 +14,12 @@ export default class Exif {
      * @param options - An object containing metadata for the sticker.
      */
     constructor(options: any) {
-        this.data['sticker-pack-id'] = options.id || ''
+        this.data['sticker-pack-id'] = options.id
         this.data['sticker-pack-name'] = options.pack || ''
         this.data['sticker-pack-publisher'] = options.author || ''
-        this.data['emojis'] = options.category || ['😹']
-    }
+        this.data['emojis'] = options.category || []
+        }
+
 
     /**
      * Builds the Exif metadata as a Buffer.
@@ -26,14 +27,26 @@ export default class Exif {
      */
     build = (): Buffer => {
         const data = JSON.stringify(this.data)
-        const exif = Buffer.concat([
-            Buffer.from([
-                0x49, 0x49, 0x2a, 0x00, 0x08, 0x00, 0x00, 0x00, 0x01, 0x00, 0x41, 0x57, 0x07, 0x00, 0x00, 0x00, 0x00,
-                0x00, 0x16, 0x00, 0x00, 0x00
-            ]),
-            Buffer.from(data, 'utf-8')
-        ])
-        exif.writeUIntLE(new TextEncoder().encode(data).length, 14, 4)
+        const dataBuffer = Buffer.from(data, 'utf-8')
+
+        // Construct the Exif header.
+        const exifHeader = Buffer.alloc(22) // Allocate a new buffer of the correct size
+        exifHeader.write('Exif\0\0', 0) // Exif header
+        exifHeader.writeUInt16LE(0x4949, 6) // II for little-endian
+        exifHeader.writeUInt16LE(0x002a, 8) // TIFF header
+        exifHeader.writeUInt32LE(0x00000008, 10) // Offset to first IFD
+
+        // Write the APP1 marker and size
+        const app1Marker = Buffer.from([0xff, 0xe1])
+        const app1Size = Buffer.alloc(2)
+        app1Size.writeUInt16BE(2 + exifHeader.length + dataBuffer.length)
+
+        // Write the length of the data into the Exif header.
+        exifHeader.writeUInt32LE(dataBuffer.length, 14)
+
+        // Concatenate all parts
+        const exif = Buffer.concat([app1Marker, app1Size, exifHeader, dataBuffer])
+
         return exif
     }
 
@@ -45,8 +58,10 @@ export default class Exif {
     add = async (image: Buffer | Image.Image): Promise<Buffer> => {
         const exif = this.exif || this.build()
         // Load the image if it is not already an instance of Image.Image.
-        image = image instanceof Image.Image ? image : await this.load(image)
-
+        image =
+            image instanceof Image.Image
+                ? image
+                : await this.load(image)
         // Set the Exif data on the image and save it.
         image.exif = exif
         return await image.save(null)

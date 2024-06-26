@@ -45,13 +45,19 @@ const ToWebp = async (
             res.resize(512, 512, {
                 fit: fit.fill
             })
+        } else {
+            res.resize(512, 512, {
+                fit: fit.contain,
+                background: { r: 0, g: 0, b: 0, alpha: 0 }
+            })
+
         }
 
         return res
             .toFormat('webp')
             .webp({
                 quality: metaInfo.quality,
-                lossless: true
+                lossless: mimeExt.includes('gif') ? true: false
             })
             .toBuffer()
     } catch (error: unknown) {

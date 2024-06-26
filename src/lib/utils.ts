@@ -1,6 +1,5 @@
 import { Readable } from 'stream'
 import fs from 'fs'
-import { fromBuffer } from 'file-type'
 
 export default class Utils {
     constructor() {}
@@ -71,6 +70,7 @@ export default class Utils {
      */
     async getMimeType(data: Buffer): Promise<{ mime: string; ext: string } | undefined> {
         try {
+            const { fromBuffer } = await import('file-type')
             const fileType = await fromBuffer(data)
             return fileType
         } catch (error) {

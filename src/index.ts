@@ -121,4 +121,4 @@ class Sticker {
     }
 }
 
-export { Sticker, StickerTypes }
+export { Sticker, StickerTypes };

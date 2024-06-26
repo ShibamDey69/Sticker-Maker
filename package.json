@@ -1,6 +1,6 @@
 {
   "name": "@shibam/sticker-maker",
-  "version": "1.1.0",
+  "version": "1.1.4",
   "description": "A package for creating stickers",
   "main": "dist/index.js",
   "type": "commonjs",

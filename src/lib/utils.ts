@@ -1,4 +1,4 @@
-import { Readable } from 'stream'
+import { Readable } from 'stream';
 import fs from 'fs'
 
 export default class Utils {
@@ -70,8 +70,8 @@ export default class Utils {
      */
     async getMimeType(data: Buffer): Promise<{ mime: string; ext: string } | undefined> {
         try {
-            const { fromBuffer } = await import('file-type')
-            const fileType = await fromBuffer(data)
+            const { fileTypeFromBuffer } = await import('file-type')
+            const fileType = await fileTypeFromBuffer(data)
             return fileType
         } catch (error) {
             console.error(`Error getting MIME type: ${error}`)

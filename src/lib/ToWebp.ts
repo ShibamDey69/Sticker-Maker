@@ -20,7 +20,7 @@ const ToWebp = async (
     mimeType: string
 ): Promise<Buffer> => {
     try {
-        if (mimeExt === 'webp' || mimeExt === 'webm') return buffer
+        if (mimeExt === 'webp') return buffer
         let data = mimeType?.includes('video')
             ? await toGif(buffer, mimeExt, metaInfo.type || StickerTypes.DEFAULT)
             : buffer

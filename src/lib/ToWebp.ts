@@ -1,8 +1,9 @@
 import { MetaDataType } from '../types/metaInfoType.js'
-import sharp, { fit } from 'sharp'
+import sharp from 'sharp'
 import { StickerTypes } from '../types/StickerTypes.js'
 import toGif from './toGif.js'
-
+import TextOnImg from './textOnImg.js'
+const textOnImg = new TextOnImg()
 /**
  * Converts a given buffer to WebP format with optional transformations.
  *
@@ -22,15 +23,15 @@ const ToWebp = async (
     try {
         if (mimeExt === 'webp') return buffer
         let data = mimeType?.includes('video')
-            ? await toGif(buffer, mimeExt, metaInfo.type || StickerTypes.DEFAULT)
-            : buffer
+            ? await toGif(buffer, mimeExt, metaInfo.type || StickerTypes.DEFAULT, metaInfo.text ?? '')
+            : (metaInfo.text ? await textOnImg.drawText(buffer,metaInfo.text): buffer)
 
         let isAnimated = mimeType?.includes('video') || mimeExt?.includes('gif')
         const res = sharp(data, { animated: isAnimated })
 
         if (metaInfo.type === StickerTypes.CIRCLE) {
             res.resize(512, 512, {
-                fit: fit.cover
+                fit: sharp.fit.cover
             }).composite([
                 {
                     input: Buffer.from(
@@ -43,11 +44,11 @@ const ToWebp = async (
             ])
         } else if (metaInfo.type === StickerTypes.SQUARE && !mimeType?.includes('video')) {
             res.resize(512, 512, {
-                fit: fit.fill
+                fit: sharp.fit.fill
             })
         } else {
             res.resize(512, 512, {
-                fit: fit.contain,
+                fit: sharp.fit.contain,
                 background: { r: 0, g: 0, b: 0, alpha: 0 }
             })
 

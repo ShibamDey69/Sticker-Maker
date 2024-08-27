@@ -7,4 +7,5 @@ export interface MetaDataType {
     category?: category[]
     type?: StickerTypes
     quality?: number
+    text?: string
 }

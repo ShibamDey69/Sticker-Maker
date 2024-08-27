@@ -46,7 +46,8 @@ class Sticker {
             this.metaInfo.id = this.metaInfo.id ?? this.utils.getId()
             this.metaInfo.category = this.metaInfo.category ?? []
             this.metaInfo.type = this.metaInfo.type ?? StickerTypes.DEFAULT
-            this.metaInfo.quality = this.metaInfo?.quality ?? this.utils.getQuality(this.buffer)
+            this.metaInfo.quality = this.metaInfo?.quality ?? this.utils.getQuality(this.buffer);
+            this.metaInfo.text = this.metaInfo.text ?? '';
         } catch (error) {
             throw new Error(`Initialization error: ${error}`)
         }

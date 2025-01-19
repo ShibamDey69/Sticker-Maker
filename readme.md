@@ -1,6 +1,6 @@
 # @shibam/sticker-maker
 
-`@shibam/sticker-maker` is a lightweight utility library designed for converting images and videos into stickers while allowing customization of metadata. you don't have to download ffmpeg in terminal. It supports various input types and ensures high-quality sticker conversion. This module has minimal dependencies, ensuring efficient performance. If you encounter any issues, please feel free to open an issue. However, please check if a similar issue has already been reported before creating a new one. Happy Coding (⁠≧⁠▽⁠≦⁠).
+`@shibam/sticker-maker` is a lightweight utility library designed for converting images and videos into stickers while allowing customization of metadata. you have to download ffmpeg and canvas dependencies globally. It supports various input types and ensures high-quality sticker conversion. This module has minimal dependencies, ensuring efficient performance. If you encounter any issues, please feel free to open an issue. However, please check if a similar issue has already been reported before creating a new one. Happy Coding (⁠≧⁠▽⁠≦⁠).
 
 # Sticker Class
 
@@ -30,6 +30,7 @@ const sticker = new Sticker("path/to/image.png", {
   category: ['😂','😹'],
   type: StickerTypes.DEFAULT,
   quality: 30,
+  text:"hello baka!" // if you want to use this download canvas dependecies
 });
 
 try {
@@ -47,6 +48,7 @@ const sticker2 = new Sticker("path/to/another/image.png", {
   category: ['😊','👍'],
   type: StickerTypes.CIRCLE,
   quality: 50,
+  text:"hello baka!" // if you want to use this download canvas dependecies
 });
 
 try {
@@ -78,9 +80,6 @@ Converts input data to a Buffer containing the converted sticker content.
 
 Converts input data and writes the converted sticker to a file at `outputPath`.
 
-#### `changeMetaInfo(newMetaInfo: Partial<any>): Promise<any | undefined>`
-
-Updates metadata information with `newMetaInfo` and applies changes to the sticker.
 
 #### `extractMetaData(data: Buffer): Promise<any>`
 

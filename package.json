@@ -1,6 +1,6 @@
 {
   "name": "@shibam/sticker-maker",
-  "version": "1.1.14",
+  "version": "1.2.0",
   "description": "A package for creating stickers",
   "main": "dist/index.js",
   "type": "module",
@@ -8,7 +8,6 @@
     "dist"
   ],
   "scripts": {
-    "prebuild": "rm -rf dist",
     "build": "tsc -p .",
     "lint": "eslint \"src/**/*.ts\"",
     "prepublish": "npm run build",
@@ -33,7 +32,6 @@
     "typescript"
   ],
   "dependencies": {
-    "@ffmpeg-installer/ffmpeg": "^1.1.0",
     "@types/fluent-ffmpeg": "^2.1.24",
     "canvas": "^2.11.2",
     "file-type": "^19.4.0",
@@ -43,7 +41,7 @@
     "text-on-gif": "^2.0.13"
   },
   "devDependencies": {
-    "@types/node": "^20.10.0",
+    "@types/node": "^20.17.14",
     "tsx": "^4.7.1",
     "typescript": "^5.4.5"
   }

@@ -22,9 +22,11 @@ const ToWebp = async (
 ): Promise<Buffer> => {
     try {
         if (mimeExt === 'webp') return buffer
-        let data = mimeType?.includes('video')
+        let data = (mimeType?.includes('video')
             ? await toGif(buffer, mimeExt, metaInfo.type || StickerTypes.DEFAULT, metaInfo.text ?? '')
-            : (metaInfo.text ? await textOnImg.drawText(buffer,metaInfo.text): buffer)
+            : metaInfo.text
+              ? await textOnImg.drawText(buffer, metaInfo.text)
+              : buffer) as Buffer
 
         let isAnimated = mimeType?.includes('video') || mimeExt?.includes('gif')
         const res = sharp(data, { animated: isAnimated })
@@ -51,14 +53,13 @@ const ToWebp = async (
                 fit: sharp.fit.contain,
                 background: { r: 0, g: 0, b: 0, alpha: 0 }
             })
-
         }
 
         return res
             .toFormat('webp')
             .webp({
                 quality: metaInfo.quality,
-                lossless: mimeExt.includes('gif') ? true: false
+                lossless: mimeExt.includes('gif') ? true : false
             })
             .toBuffer()
     } catch (error: unknown) {

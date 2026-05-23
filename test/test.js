@@ -1,4 +1,4 @@
-import Sticker from '../src/index.js'
+import Sticker, {extractMetaData} from '../src/index.js'
 import fs from 'fs'
 import path from 'path'
 
@@ -14,6 +14,8 @@ async function test() {
         }     )
         await sticker.toFile(outputPath)
         console.log('Sticker created successfully at:', outputPath)
+        const exifData = await extractMetaData(outputPath)
+        console.log('Extracted EXIF Data:', exifData)
     } catch (error) {
         console.error('Error creating sticker:', error)
     }

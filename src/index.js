@@ -48,4 +48,10 @@ export default class Sticker {
     }
 }
 
+const StickerTypes = {
+    DEFAULT: 'DEFAULT',
+    CIRCLE: 'CIRCLE',
+    SQUARE: 'SQUARE'
+}
 export { default as extractMetaData } from './lib/extractMetaData.js'
+export { StickerTypes }

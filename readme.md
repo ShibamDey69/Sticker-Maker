@@ -1,6 +1,6 @@
 # @shibam/sticker-maker
 
-`@shibam/sticker-maker` is a lightweight utility library designed for converting images and videos into stickers while allowing customization of metadata. you have to download ffmpeg and canvas dependencies globally. It supports various input types and ensures high-quality sticker conversion. This module has minimal dependencies, ensuring efficient performance. If you encounter any issues, please feel free to open an issue. However, please check if a similar issue has already been reported before creating a new one. Happy Coding (⁠≧⁠▽⁠≦⁠).
+`@shibam/sticker-maker` is a lightweight utility library designed for converting images and videos into stickers while allowing customization of metadata. you have to download ffmpeg dependency. It supports various input types and ensures high-quality sticker conversion. This module has minimal dependencies, ensuring efficient performance. If you encounter any issues, please feel free to open an issue. However, please check if a similar issue has already been reported before creating a new one. Happy Coding (⁠≧⁠▽⁠≦⁠).
 
 # Sticker Class
 
@@ -20,10 +20,10 @@ Here's how you can use the `Sticker` class:
 ```typescript
 import fs from "fs";
 import { Readable } from "stream";
-import { Sticker, StickerTypes } from "@shibam/sticker-maker";
+import Sticker, { StickerTypes } from "@shibam/sticker-maker";
 
 // Example 1: Create a new sticker instance and convert to buffer
-const sticker = new Sticker("path/to/image.png", {
+const sticker = new Sticker("path/to/image.png", {// input can be file path or buffer or stream
   pack: "My Sticker Pack",
   author: "Shibam",
   id: "123467890",
@@ -41,7 +41,7 @@ try {
 }
 
 // Example 2: Create a new sticker instance and convert to file
-const sticker2 = new Sticker("path/to/another/image.png", {
+const sticker2 = new Sticker("path/to/another/image.png", {// input can be file path or buffer or stream
   pack: "Another Sticker Pack",
   author: "John Doe",
   id: "987654321",
@@ -81,7 +81,7 @@ Converts input data to a Buffer containing the converted sticker content.
 Converts input data and writes the converted sticker to a file at `outputPath`.
 
 
-#### `extractMetaData(data: Buffer): Promise<any>`
+# `extractMetaData(data: Buffer): Promise<any>`
 
 Extracts metadata from `data` and returns the extracted information.
 

@@ -20,7 +20,7 @@ export default class Utils {
     }
     getQuality(data) {
         const bytes = Buffer.from(data).length / 1024
-        return bytes > 4096 ? 8 : bytes > 3072 ? 10 : bytes > 2048 ? 12 : 15
+        return bytes > 4096 ? 70 : bytes > 3072 ? 80 : bytes > 2048 ? 85 : 90
     }
     async getMimeType(data) {
         try {

@@ -77,7 +77,7 @@ export default class TextOnImg {
             const [width, height] = stdout.trim().split('x').map(Number)
             if (!width || !height) throw new Error('Invalid image dimensions')
 
-            const fontSize = Math.floor(height / 10)
+            const fontSize = Math.floor(height / 7)
             const lineHeight = fontSize * 1.2
             const lines = this.wrapText(text, this.maxCharsPerLine)
 

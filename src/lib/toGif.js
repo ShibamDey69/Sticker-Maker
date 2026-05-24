@@ -17,9 +17,9 @@ export default async function videoToGif(buffer, extType, type, text = '') {
         try {
             await fs.writeFile(inputPath, buffer)
             const vf = type === 'SQUARE'
-                ? 'scale=320:-1:flags=lanczos,fps=10,crop=min(iw\\,ih):min(iw\\,ih)'
-                : 'scale=320:-1:flags=lanczos,fps=20'
-            await exec('ffmpeg', ['-y', '-i', inputPath, '-vf', vf, '-t', '7', '-loop', '0', '-f', 'gif', outputPath])
+                ? "scale=320:-1:flags=lanczos,fps=10,crop=min(iw\\,ih):min(iw\\,ih)"
+                : "scale=320:-1:flags=lanczos,fps=10"
+            await exec('ffmpeg', ['-y', '-i', inputPath, '-vf', vf, '-t', '6', '-loop', '0', '-f', 'gif', outputPath])
             let result = await fs.readFile(outputPath)
             if (text) result = await textOnGif.drawText(result, text)
             return result

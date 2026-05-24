@@ -77,7 +77,7 @@ export default class TextOnGif {
             const [width, height] = stdout.trim().split('x').map(Number)
             if (!width || !height) throw new Error('Invalid GIF dimensions')
 
-            const fontSize = Math.floor(height / 10)
+            const fontSize = Math.floor(height / 8)
             const lineHeight = fontSize * 1.2
             const lines = this.wrapText(text, this.maxCharsPerLine)
 
